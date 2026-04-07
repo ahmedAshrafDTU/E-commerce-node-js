@@ -1,21 +1,13 @@
 const Category = require("../../../databases/models/category.model");
 const slugify = require("slugify");
-
-const catchAsyncError = (fn)=>{
-  return (req,res,next)=>{
-    fn(req,res,next).catch(err=>{
-      next(err)
-    })
-  }
-}
-
+import catchAsyncError from "../../utils/middleware/catchAsyncError";
 // Create a new category
 const createCategory =catchAsyncError( async (req, res) => {
-  try {
+   try {
     req.body.slug = slugify(req.body.name);
     const category = await Category.create(req.body);
     res.status(201).json({ message: "Category created successfully", category });
-  } catch (error) {
+   } catch (error) {
     res.status(500).json({ message: "Error creating category", error: error.message });
   }
 });

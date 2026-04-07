@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const dbConnection = require("./databases/dbConnection");
-
+const globalErrorHanddle = require("./src/utils/middleware/globalErrorHanddle");
 // Initialize Express app
 const app = express();
 const port = process.env.PORT || 8000;
@@ -15,9 +15,7 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-app.use((err,req,res,next)=>{
-  res.status(400).json(err);
-})
+app.use(globalErrorHanddle)
 
 // Routes
 const helloRoutes = require("./src/modules/hello/hello.routes");
@@ -25,6 +23,7 @@ const hiRoutes = require("./src/modules/hi/hi.routes");
 const sumRoutes = require("./src/modules/sum/sum.routes");
 const bodyRoutes = require("./src/modules/body/body.routes");
 const categoryRoutes = require("./src/modules/categories/categories.routes");
+
 app.use("/hello", helloRoutes);
 app.use("/hi", hiRoutes);
 app.use("/sum", sumRoutes);
