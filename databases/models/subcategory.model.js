@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-export const subcategorySchema = new mongoose.Schema({
+const subcategorySchema = new mongoose.Schema({
     name: {
         type: String,
         unique: [true, "Subcategory name must be unique"],
@@ -21,4 +21,4 @@ export const subcategorySchema = new mongoose.Schema({
 
 const SubCategory = mongoose.model("SubCategory", subcategorySchema);
 
-export default SubCategory;
+module.exports = SubCategory;

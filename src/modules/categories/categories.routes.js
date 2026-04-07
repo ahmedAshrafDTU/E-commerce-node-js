@@ -7,8 +7,11 @@ const {
   updateCategory,
   deleteCategory,
 } = require("./categories.controller");
+const subCategoryRoutes = require("../subcategories/subcategories.routes");
 
 const router = express.Router();
+
+router.use("/:categoryId/subcategories", subCategoryRoutes);
 
 router.route("/")
   .post(createCategory)
