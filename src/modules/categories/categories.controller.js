@@ -2,6 +2,7 @@ const Category = require("../../../databases/models/category.model");
 const slugify = require("slugify");
 const catchAsyncError = require("../../utils/middleware/catchAsyncError");
 const ApiError = require("../../utils/ApiError");
+const deleteOne = require("../../utils/handelers/refactor.handeler");
 // Create a new category
 const createCategory = catchAsyncError(async (req, res) => {
   req.body.slug = slugify(req.body.name);
@@ -40,13 +41,8 @@ const updateCategory = catchAsyncError(async (req, res, next) => {
 });
 
 // Delete a category
-const deleteCategory = catchAsyncError(async (req, res, next) => {
-  const category = await Category.findByIdAndDelete(req.params.id);
-  if (!category) {
-    return next(new ApiError("Category not found", 404));
-  }
-  res.status(200).json({ message: "Category deleted successfully" });
-});
+const deleteCategory = deleteOne(Category);
+
 
 module.exports = {
   createCategory,

@@ -22,6 +22,8 @@ const sumRoutes = require("./src/modules/sum/sum.routes");
 const bodyRoutes = require("./src/modules/body/body.routes");
 const categoryRoutes = require("./src/modules/categories/categories.routes");
 const subCategoryRoutes = require("./src/modules/subcategories/subcategories.routes");
+const brandRoutes = require("./src/modules/brands/brands.routes");
+const productRoutes = require("./src/modules/products/products.routes");
 
 app.use("/hello", helloRoutes);
 app.use("/hi", hiRoutes);
@@ -29,6 +31,8 @@ app.use("/sum", sumRoutes);
 app.use("/body", bodyRoutes);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/subcategory", subCategoryRoutes);
+app.use("/api/v1/brand", brandRoutes);
+app.use("/api/v1/product", productRoutes);
 
 // Global Error Handler (MUST BE LAST)
 app.use(globalErrorHanddle);

@@ -2,6 +2,7 @@ const SubCategory = require("../../../databases/models/subcategory.model");
 const slugify = require("slugify");
 const catchAsyncError = require("../../utils/middleware/catchAsyncError");
 const ApiError = require("../../utils/ApiError");
+const deleteOne = require("../../utils/handelers/refactor.handeler");
 
 // Create a new subcategory
 const createSubCategory = catchAsyncError(async (req, res, next) => {
@@ -45,13 +46,7 @@ const updateSubCategory = catchAsyncError(async (req, res, next) => {
 });
 
 // Delete a subcategory
-const deleteSubCategory = catchAsyncError(async (req, res, next) => {
-  const subCategory = await SubCategory.findByIdAndDelete(req.params.id);
-  if (!subCategory) {
-    return next(new ApiError("Subcategory not found", 404));
-  }
-  res.status(200).json({ message: "Subcategory deleted successfully" });
-});
+const deleteSubCategory = deleteOne(SubCategory);
 
 module.exports = {
   createSubCategory,
